@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Budget</title>
+</head>
+<div class="jumbotron" style="text-align: center;">
+    <h1>Budget</h1>
+    <h3 style="font-style: italic; color:pink;text-decoration: underline;">Are You Broke?</h3>
+</div>
+<div class='container'>
+
+    <body>
+        <div ng-app="app">
+            <div ng-controller="budget as budget">
+                <!--Add Expense-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-success top-buffer">
+                            <div class="panel-heading">Expense Summary</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div id="expenseBlock">
+                                        <div class='center-block' style="text-align: center;">
+                                            <label for="expense">Enter Expense</label>
+                                            <form name="addExpenseForm" id="expense">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">:(</span>
+                                                    <input type="text" class="form-control" aria-describedby="basic-addon1" placeholder="Expense Name" ng-model="budget.addExpense.name" required></input>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">$</span>
+                                                    <input type="number" class="form-control" aria-describedby="basic-addon1" placeholder="Expense Amount" ng-model="budget.addExpense.amount" required></input>
+                                                </div>
+                                                <button ng-click="budget.addExpenseCall()" class="btn btn-danger" ng-disabled="addExpenseForm.$invalid">Put it on the List</button>
+                                        </div>
+                                        <!--Expense Table-->
+                                        <table class="table">
+                                            <tr ng-repeat="item in budget.infoAddEx">
+                                                <td>{{item.name}}</td>
+                                                <td> {{item.amount | currency}}</td>
+                                                <td ng-init="budget.expenseTotal = budget.expenseTotal + item.amount"></td>
+                                            </tr>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Add Income-->
+
+                    <div class="col-md-6">
+                        <div class="panel panel-success top-buffer">
+                            <div class="panel-heading">Income Summary</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div id="incomeBlock">
+                                        <div class='center-block' style="text-align: center;" ng-init="items.total.amount = {}">
+                                            <label for="income">Enter Income</label>
+                                            <form name="addIncomeForm" id="income">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">:)</span>
+                                                    <input type="text" class="form-control" aria-describedby="basic-addon1" placeholder="Income Name" ng-model="budget.addIncome.name" required></input>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="basic-addon1">$</span>
+                                                    <input type="number" class="form-control" aria-describedby="basic-addon1" placeholder="Income Amount" ng-model="budget.addIncome.amount" required></input>
+                                                </div>
+                                                <button ng-click="budget.addIncomeCall()" class="btn btn-danger" ng-disabled="addIncomeForm.$invalid">Put it on the List</button>
+                                        </div>
+                                        <!--Income Table-->
+                                        <table class="table">
+                                            <tr ng-repeat="item in budget.infoAddIn">
+                                                <td>{{item.name}}</td>
+                                                <td>{{item.amount | currency}}</td>
+                                                <td ng-init="budget.incomeTotal = budget.incomeTotal + item.amount"></td>
+                                            </tr>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Total Block-->
+                <div class="container-fluid">
+                    <div class="col-md-3">
+                        <div class="panel panel-success top-buffer">
+                            <div class="panel-heading">Budget Summary</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="inTot">Total Income</lable>
+    <p id="inTot">{{budget.incomeTotal | currency}}</p>
+    <label for="exTot">Total Expense</lable>
+    <p id="exTot">{{budget.expenseTotal | currency}}</p>
+    <label for="finalTotal">Income vs. Expense</lable>
+    <p id="finalTotal">{{budget.incomeTotal-budget.expenseTotal | currency}}</p>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="app/app.module.js"></script>
+<script src="app/budget/budget.controller.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</body>
+</html>
